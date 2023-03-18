@@ -9,6 +9,9 @@
  * 
  */
 
+#ifndef PRIME_H
+#define PRIME_H
+
 /**
  * @brief Checks for prime numbers faster 
  * than the example in Wikipedia (Take that!)
@@ -25,3 +28,5 @@ int isPrime(int num);
  * @return int The next available greater prime number
  */
 int generatePrime(int num);
+
+#endif
