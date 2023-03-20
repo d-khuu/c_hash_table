@@ -12,19 +12,22 @@
 
 int isPrime(int num)
 {
+    int eval;
+
     if(num == 2 || num == 3)
     {
         return 1;
     }
-    // If even number => not prime
     else if((num%2) == 0 || (num%3) == 0 || num <= 1)
     {
         return 0;
     }
 
-    // All primes are (6k +- 1)
-    // where k is an integer greater than 1
-    int eval = (num%6);
+    /**
+     * All primes are (6k +- 1)
+     * where k is an integer greater than 1
+     */
+    eval = (num%6);
     if(((eval+1) == 6) || ((eval-1) == 0))
     {
         return 1;
@@ -36,6 +39,7 @@ int isPrime(int num)
 
 int generatePrime(int num)
 {
+    int k;
     switch(num)
     {
         case 2:
@@ -46,7 +50,7 @@ int generatePrime(int num)
             break;
     }
 
-    int k = num / 6;
+    k = num / 6;
     if((6*k-1) == num)
     {
         return (6*k+1);
