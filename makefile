@@ -1,20 +1,23 @@
-FLAGS =-ansi -pedantic -Wall -g
+CFLAGS = -std=c11 -pedantic -Wall -g
 CC = gcc
-PROGRAM= vm
-myprog= hash_table.o prime.o 
-SOURCES= hash_table.c prime.c
-HEADERS= hash_table.h prime.h
+SRC_DIR = src
+BUILD_DIR = build
+PROG = hash_table
+SRC = $(shell find $(SRC_DIR) -name '*.c')
+OBJS = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+HEADERS = $(shell find $(SRC_DIR) -name '*.h')
 
 
-all: $(myprog)
-	$(CC) $(CFLAGS) -o $(PROGRAM) $(myprog) 
+all: $(OBJS)
+	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
 
-%.o: %.c %.h
-	$(CC) $(CFLAGS) -c $^
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 .PHONY: clean
 
 clean:
-	rm -f *.o *.h.gch $(PROGRAM)
+	rm -f $(BUILD_DIR)/*.o $(SRC_DIR)/*.h.gch $(OBJS) $(PROG)
+
 archive:
-	zip $(USER)-a2 $(SOURCES) $(HEADERS) *.txt Makefile
+	zip $(USER) $(SRC) $(HEADERS) *.txt Makefile
