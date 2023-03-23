@@ -87,28 +87,29 @@ int delete(ht_hash_table* hashTable, char* key);
 /**
  * @brief Finds the bucket's index to place the data in
  * 
- * @param hashTable
+ * @param hashTable 
  * @param key 
- * @return int 
+ * @return char* 
  */
-int search(ht_hash_table* hashTable, char* key);
+char* search(ht_hash_table* hashTable, char* key);
 
 /**
  * @brief Calculates the hash of the key
  * 
  * @param hashTable
  * @param key 
+ * @param htLength
  * @return int 
  */
-int hash(char* key);
+int hash(char* key, int htLength);
 
 /**
- * @brief 
- * Default throw function.
- * Honestly, I don't even know 
- * if this works at all
+ * @brief Checks if the hash table is full
  * 
+ * @param hashTable 
+ * @return int 
  */
-void throw();
+int isFull(ht_hash_table* hashTable);
+
 
 #endif
