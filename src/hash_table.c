@@ -16,7 +16,8 @@ int initialiseHashTable(ht_hash_table* hashTable, int size)
 {
     hashTable->size = size;
     hashTable->count = 0;
-    hashTable->items = calloc((size_t)hashTable->size, sizeof(hashTable->items));
+    // hashTable->items = calloc((size_t)hashTable->size, sizeof(hashTable->items));
+    hashTable->items = malloc(hashTable->size * sizeof(hashTable->items));
     return 0;
 }
 
