@@ -2,7 +2,7 @@ CFLAGS = -std=c11 -pedantic -Wall -g
 CC = gcc
 SRC_DIR = src
 BUILD_DIR = build
-PROG = hash_table
+PROG = hash_table.x86_64
 SRC = $(shell find $(SRC_DIR) -name '*.c')
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 HEADERS = $(shell find $(SRC_DIR) -name '*.h')
