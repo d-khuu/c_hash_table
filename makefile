@@ -17,7 +17,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 .PHONY: clean
 
 clean:
-	rm -f $(BUILD_DIR)/*.o $(SRC_DIR)/*.h.gch $(OBJS) $(PROG)
+	rm -f $(BUILD_DIR)/*.o $(SRC_DIR)/*.h.gch $(OBJS) $(PROG) vgcore.*
 
 archive:
 	zip $(USER) $(SRC) $(HEADERS) *.txt Makefile
