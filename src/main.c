@@ -9,7 +9,29 @@
  * 
  */
 #include "hash_table.h"
+#define FILE_NAME "data.csv"
 
+
+int loadFromFile(ht_hash_table* hashTable)
+{
+    FILE * fptr;
+    char str[100];
+    fptr = fopen(FILE_NAME, "r");
+
+    if(fptr == NULL)
+    {
+        printf("Unable to fine file with name %s\n",FILE_NAME);
+        printf("Exiting\n");
+        exit(EXIT_FAILURE);
+    }
+
+    while(fgets(str, 100, fptr))
+    {
+        printf("%s\n", str);
+    }
+    fclose(fptr);
+    exit(EXIT_SUCCESS);
+}
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +44,7 @@ int main(int argc, char *argv[])
         printf("Invalid integer %s.\n",argv[1]);
         return 0;
     }
+
     
     int SIZE_G = atoi(argv[1]);
     int exitCode;
@@ -47,6 +70,8 @@ int main(int argc, char *argv[])
         printf("Error: Failed to initialise the hash table.\n");
     }
     printf("Hash Table Size: %d, Count: %d.\n", hashTablePtr->size, hashTablePtr->count);
+    
+    loadFromFile(hashTablePtr);
 
     char * keyTest = "donut";
     void * valTest = "valueTest";
@@ -68,5 +93,7 @@ int main(int argc, char *argv[])
         printf("BAD\n");
     }
     printf("hashmap index: %s, value: %s\n", keyTest, search(hashTablePtr, keyTest));
-    return 0;
+    
+    exit(EXIT_SUCCESS);
 }
+
