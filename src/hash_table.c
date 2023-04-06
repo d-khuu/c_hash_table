@@ -29,8 +29,11 @@ int insert(ht_hash_table* hashTable, char* key, void* value)
 
     if(isFull(hashTable))
     {
-        printf("[Error] The hashtable is full. It is meant to extend, but not yet!\n");
-        return 0;
+        // printf("[Error] The hashtable is full. It is meant to extend, but not yet!\n");
+        printf("[Info] The hashtable is full. Resizing the hashtable.\n");
+        resize(hashTable);
+        insert(hashTable, key, value);
+        return 1;
     }
     
     if(hashTable->items[hashVal] == NULL)
@@ -52,7 +55,7 @@ int insert(ht_hash_table* hashTable, char* key, void* value)
             currIndex = baseIndex + i;
             if(currIndex == hashTable->size)
             {
-                printf("reset\n");
+                printf("[Info] Reset the hash table index for empty buckets\n");
                 baseIndex = 0;
                 i = -1;
             }
@@ -124,7 +127,6 @@ int delete(ht_hash_table* hashTable, char* key)
 char* search(ht_hash_table* hashTable, char* key)
 {   
     int hashVal = hash(key, hashTable->size);
-    printf("[Info] hash value %d\n", hashVal);
     int length = hashTable->size;
 
     if(hashTable->items[hashVal] == NULL)
@@ -173,6 +175,28 @@ int hash(char* key, int htLength)
     hash = hash % htLength;
     // printf("%d\n", hash);
     return hash;
+}
+
+int resize(ht_hash_table* hashTable)
+{
+    int sizeNew = generatePrime((hashTable->size));
+
+    printf("[Info] Resized to %d\n",sizeNew);
+
+    ht_hash_table* hashTableNew = malloc(sizeof(*hashTableNew));
+
+    initialiseHashTable(hashTableNew, sizeNew);
+
+    for(int i=0;i<hashTable->count;i++)
+    {
+        insert(hashTableNew, hashTable->items[i]->key, hashTable->items[i]->value);
+    }
+
+
+    *hashTable = *hashTableNew;
+    free(hashTableNew);
+
+    return 1;
 }
 
 int isFull(ht_hash_table* hashTable)

@@ -41,14 +41,16 @@ int loadFromFile(ht_hash_table* hashTable)
         valueTemp = strtok(NULL, ",\n");
         // printf("key: %s value: %s\n",keyTemp, valueTemp);
         insert(hashTable, keyTemp, valueTemp);
-        if(isFull(hashTable))
-        {
-            break;
-        }
+        // if(isFull(hashTable))
+        // {
+        //     printf("[Warning] The hashtable is full\n");
+        //     // break;
+        // }
     }
     // printf("[Info] hashmap index: %s, value: %s\n", "town", search(hashTable, "town"));
     // printf("hashmap index: %s, value: %s\n", hashTable->items[1]->key, hashTable->items[1]->value);
     // printf("[Info] hashmap index: %s, value: %s\n", keyTemp, search(hashTable, keyTemp));
+    printf("[Info] Complete import\n");
     fclose(fptr);
     // exit(0);
     return 1;
@@ -79,7 +81,7 @@ int main(int argc, char *argv[])
     {
         printf("[Warning] The value %d is not a prime number.\n", SIZE_G);
         SIZE_G = generatePrime(SIZE_G);
-        printf("[Info] We'll generate one for you. Here, it will be %d.\n", SIZE_G);
+        printf("[Warning] We'll generate one for you. Here, it will be %d.\n", SIZE_G);
     }
     
     ht_hash_table* hashTablePtr = malloc(sizeof(*hashTablePtr));
@@ -111,7 +113,8 @@ int main(int argc, char *argv[])
     // {
     //     printf("BAD\n");
     // }
-    printf("[Info] hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
+    printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
+    printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[1]->key, hashTablePtr->items[1]->value);
     
     exit(EXIT_SUCCESS);
 }

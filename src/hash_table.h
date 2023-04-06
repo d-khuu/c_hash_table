@@ -93,6 +93,14 @@ int delete(ht_hash_table* hashTable, char* key);
 char* search(ht_hash_table* hashTable, char* key);
 
 /**
+ * @brief Resizes the hashtable
+ * 
+ * @param hashTable 
+ * @return int 
+ */
+int resize(ht_hash_table* hashTable);
+
+/**
  * @brief Calculates the hash of the key
  * 
  * @param hashTable
