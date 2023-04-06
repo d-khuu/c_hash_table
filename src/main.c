@@ -11,11 +11,18 @@
 #include "hash_table.h"
 #define FILE_NAME "data.csv"
 
-
+/**
+ * @brief Loads the data from the csv file into the hashtable
+ * 
+ * @param hashTable 
+ * @return int 
+ */
 int loadFromFile(ht_hash_table* hashTable)
 {
     FILE * fptr;
     char str[100];
+    char * keyTemp;
+    char * valueTemp;
     fptr = fopen(FILE_NAME, "r");
 
     if(fptr == NULL)
@@ -25,23 +32,37 @@ int loadFromFile(ht_hash_table* hashTable)
         exit(EXIT_FAILURE);
     }
 
-    while(fgets(str, 100, fptr))
+    while(feof(fptr) != 1)
     {
-        printf("%s\n", str);
+        fgets(str, 100, fptr);
+        // printf("%s", str);
+
+        keyTemp = strtok(str, ",\n");
+        valueTemp = strtok(NULL, ",\n");
+        // printf("key: %s value: %s\n",keyTemp, valueTemp);
+        insert(hashTable, keyTemp, valueTemp);
+        if(isFull(hashTable))
+        {
+            break;
+        }
     }
+    // printf("[Info] hashmap index: %s, value: %s\n", "town", search(hashTable, "town"));
+    // printf("hashmap index: %s, value: %s\n", hashTable->items[1]->key, hashTable->items[1]->value);
+    // printf("[Info] hashmap index: %s, value: %s\n", keyTemp, search(hashTable, keyTemp));
     fclose(fptr);
-    exit(EXIT_SUCCESS);
+    // exit(0);
+    return 1;
 }
 
 int main(int argc, char *argv[])
 {
     if(argc < 2)
     {
-        printf("Size not provided.\n");
+        printf("[Error] Size not provided.\n");
     }
     else if(atoi(argv[1]) == 0)
     {
-        printf("Invalid integer %s.\n",argv[1]);
+        printf("[Error] Invalid integer %s.\n",argv[1]);
         return 0;
     }
 
@@ -52,47 +73,45 @@ int main(int argc, char *argv[])
     exitCode = isPrime(SIZE_G);
     if(exitCode == 1)
     {
-        printf("The value %d is a prime number.\n", SIZE_G);
-        // int nextPrime = generatePrime(SIZE_G);
-        // printf("Here is the next prime number -> %d.\n", nextPrime);
+        printf("[Info] The value %d is a prime number.\n", SIZE_G);
     }
     else
     {
-        printf("The value %d is not a prime number.\n", SIZE_G);
+        printf("[Warning] The value %d is not a prime number.\n", SIZE_G);
         SIZE_G = generatePrime(SIZE_G);
-        printf("We'll generate one for you. Here, it will be %d.\n", SIZE_G);
+        printf("[Info] We'll generate one for you. Here, it will be %d.\n", SIZE_G);
     }
     
     ht_hash_table* hashTablePtr = malloc(sizeof(*hashTablePtr));
 
-    if(initialiseHashTable(hashTablePtr, SIZE_G) != 0)
+    if(initialiseHashTable(hashTablePtr, SIZE_G) != 1)
     {
-        printf("Error: Failed to initialise the hash table.\n");
+        printf("[Error] Failed to initialise the hash table.\n");
     }
-    printf("Hash Table Size: %d, Count: %d.\n", hashTablePtr->size, hashTablePtr->count);
+    printf("[Info] Hash Table Size: %d, Count: %d.\n", hashTablePtr->size, hashTablePtr->count);
     
     loadFromFile(hashTablePtr);
 
-    char * keyTest = "donut";
-    void * valTest = "valueTest";
-    printf("%s\n",keyTest);
+    // char * keyTest = "sam";
+    // void * valTest = "valueTest";
+    // printf("%s\n",keyTest);
 
-    char * toon = "toonj";
-    void * val = "kingdom";
-    printf("hash of new is %d\n", hash(toon, hashTablePtr->size));
+    // char * toon = "toonj";
+    // void * val = "kingdom";
+    // printf("hash of new is %d\n", hash(toon, hashTablePtr->size));
     
-    insert(hashTablePtr, keyTest, valTest);
-    insert(hashTablePtr, toon, val);
+    // insert(hashTablePtr, keyTest, valTest);
+    // insert(hashTablePtr, toon, val);
     // keyTest = (char *)malloc(20);
     // strcpy(keyTest, "fake");
-    printf("%s\n",keyTest);
-    printf("%d\n",hash(keyTest, hashTablePtr->size));
-    printf("key => %s = %d, item => %s\n", keyTest, hash(keyTest, hashTablePtr->size), hashTablePtr->items[hash(keyTest, hashTablePtr->size)]->value);
-    if(delete(hashTablePtr, toon) == 0)
-    {
-        printf("BAD\n");
-    }
-    printf("hashmap index: %s, value: %s\n", keyTest, search(hashTablePtr, keyTest));
+    // printf("%s\n",keyTest);
+    // printf("%d\n",hash(keyTest, hashTablePtr->size));
+    // printf("key => %s = %d, item => %s\n", keyTest, hash(keyTest, hashTablePtr->size), hashTablePtr->items[hash(keyTest, hashTablePtr->size)]->value);
+    // if(delete(hashTablePtr, toon) == 0)
+    // {
+    //     printf("BAD\n");
+    // }
+    printf("[Info] hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
     
     exit(EXIT_SUCCESS);
 }

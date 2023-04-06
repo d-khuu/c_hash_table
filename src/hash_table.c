@@ -18,7 +18,7 @@ int initialiseHashTable(ht_hash_table* hashTable, int size)
     hashTable->count = 0;
     // hashTable->items = calloc((size_t)hashTable->size, sizeof(hashTable->items));
     hashTable->items = malloc(hashTable->size * sizeof(hashTable->items));
-    return 0;
+    return 1;
 }
 
 int insert(ht_hash_table* hashTable, char* key, void* value)
@@ -26,24 +26,26 @@ int insert(ht_hash_table* hashTable, char* key, void* value)
     int hashVal = hash(key, hashTable->size);
     int baseIndex;
     int currIndex;
+
     if(isFull(hashTable))
     {
+        printf("[Error] The hashtable is full. It is meant to extend, but not yet!\n");
         return 0;
     }
     
     if(hashTable->items[hashVal] == NULL)
     {
         ht_item* tempItem = malloc(sizeof(tempItem));
-        tempItem->key = key;
-        tempItem->value = value;
+        tempItem->key = strdup(key);
+        tempItem->value = strdup(value);
         hashTable->items[hashVal] = tempItem;
         hashTable->count ++;
-        printf("Inserted key \"%s\" value \"%s\" index %d\n", key, (char*)value, hashVal);
+        printf("[Info] Inserted key \"%s\" value \"%s\" index %d\n", key, (char*)value, hashVal);
         return 1;
     }
     else
     {   
-        printf("Collision for index %d\n", hashVal);
+        printf("[Info] Collision for index %d\n", hashVal);
         baseIndex = hashVal;
         for(int i=0;i<hashTable->size;i++)
         {
@@ -57,16 +59,16 @@ int insert(ht_hash_table* hashTable, char* key, void* value)
             else if(hashTable->items[currIndex] == NULL)
             {
                 ht_item* tempItem = malloc(sizeof(tempItem));
-                tempItem->key = key;
-                tempItem->value = value;
+                tempItem->key = strdup(key);
+                tempItem->value = strdup(value);
                 hashTable->items[currIndex] = tempItem;
                 hashTable->count ++;
-                printf("Inserted key \"%s\" value \"%s\" index %d\n", key, (char*)value, currIndex);
+                printf("[Info] Inserted key \"%s\" with value \"%s\" at index %d\n", key, (char*)value, currIndex);
                 return 1;
             }
         }
-        printf("The item was not insertable even though it has space.\n");
-        printf("Key %s value %s", key, ((char *)value));
+        printf("[Error] The item was not insertable even though it has space.\n");
+        printf("[Error] Key %s value %s", key, ((char *)value));
         return 0;
     }
 }
@@ -81,7 +83,7 @@ int delete(ht_hash_table* hashTable, char* key)
 
     if(hashTable->items[hashVal] == NULL)
     {
-        printf("Invalid key \"%s\". Cannot search.\n",key);
+        printf("[Error] Invalid key \"%s\". Cannot search.\n",key);
         return 0;
     }
 
@@ -90,7 +92,7 @@ int delete(ht_hash_table* hashTable, char* key)
         tempVal = hashTable->items[hashVal]->value;
         hashTable->items[hashVal] = NULL;
         hashTable->count --;
-        printf("Deleted item with key: %s value: %s\n", key, tempVal);
+        printf("[Info] Deleted item with key: %s value: %s\n", key, tempVal);
         return 1;
     }
     else
@@ -99,7 +101,7 @@ int delete(ht_hash_table* hashTable, char* key)
         for(int i=0;i<hashTable->size;i++)
         {
             currIndex = baseIndex + i;
-            printf("current index %d\n", currIndex);
+            // printf("current index %d\n", currIndex);
             if(currIndex == hashTable->size)
             {
                 baseIndex = 0;
@@ -110,11 +112,11 @@ int delete(ht_hash_table* hashTable, char* key)
                 tempVal = hashTable->items[currIndex]->value;
                 hashTable->items[currIndex] = NULL;
                 hashTable->count --;
-                printf("Deleted item with key: %s value: %s\n", key, tempVal);
+                printf("[Info] Deleted item with key: %s value: %s\n", key, tempVal);
                 return 1;
             }
         }
-        printf("Could not delete the key %s, it does not seem to exist.\n",key);
+        printf("[Warning] Could not delete the key %s, it does not seem to exist.\n",key);
         return 0;
     }
 }
@@ -122,11 +124,12 @@ int delete(ht_hash_table* hashTable, char* key)
 char* search(ht_hash_table* hashTable, char* key)
 {   
     int hashVal = hash(key, hashTable->size);
+    printf("[Info] hash value %d\n", hashVal);
     int length = hashTable->size;
 
     if(hashTable->items[hashVal] == NULL)
     {
-        printf("Invalid key \"%s\". Cannot search.\n",key);
+        printf("[Warning] Invalid key \"%s\". Cannot search.\n",key);
         return NULL;
     }
 
@@ -145,7 +148,7 @@ char* search(ht_hash_table* hashTable, char* key)
                 }    
             }
         }
-        printf("Can't find it\n");
+        printf("[Error] Can't find the bucket with key %s\n",key);
         return NULL;
     }
 }
