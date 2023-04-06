@@ -1,4 +1,5 @@
-CFLAGS = -std=c11 -pedantic -Wall -g
+STANDARD = -std=c11
+CFLAGS = -pedantic -Wall -g
 CC = gcc
 SRC_DIR = src
 BUILD_DIR = build
