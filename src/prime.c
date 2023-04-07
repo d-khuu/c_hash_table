@@ -1,7 +1,7 @@
 /**
  * @file prime.c
  * @author Danny Khuu
- * @brief 
+ * @brief C file for the prime functions
  * @version 0.1
  * @date 2023-03-18
  * 

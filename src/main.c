@@ -1,7 +1,7 @@
 /**
  * @file main.c
  * @author Danny Khuu
- * @brief 
+ * @brief The main C file to interact with the hash table for testing
  * @version 0.1
  * @date 2023-03-18
  * 
@@ -14,8 +14,8 @@
 /**
  * @brief Loads the data from the csv file into the hashtable
  * 
- * @param hashTable 
- * @return int 
+ * @param hashTable The hash table instance
+ * @return int The exit code (0 = Failed or 1 = Successful)
  */
 int loadFromFile(ht_hash_table* hashTable)
 {
@@ -59,8 +59,8 @@ int loadFromFile(ht_hash_table* hashTable)
 /**
  * @brief The main function just for testing the hash table
  * 
- * @param argc 
- * @param argv 
+ * @param argc The number of arguments passed
+ * @param argv The argument values
  * @return int 
  */
 int main(int argc, char *argv[])

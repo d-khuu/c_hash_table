@@ -1,7 +1,8 @@
 /**
  * @file hash_table.h
  * @author Danny Khuu
- * @brief 
+ * @brief Header file for the hash table data 
+ *        structure and its functions
  * @version 0.1
  * @date 2023-03-18
  * 
@@ -20,11 +21,11 @@
 
 /**
  * @struct ht_item
- * @brief This is the hash table item struct
- * @var ht_item::key
- * The key as a string.
- * @var ht_item::value
- * The value associated to the key.
+ * @brief The hash table item struct
+ * @var char * ht_item::key
+ * The key for indexing the value
+ * @var char * ht_item::value
+ * The value/bucket associated to the key
  * 
  */
 typedef struct
@@ -36,16 +37,16 @@ typedef struct
 
 /** 
  * @struct ht_hash_table
- * @brief This is the hash table struct
- * @var ht_hash_table::size
- * Member 'size' is the size of the hash table
- * @var ht_hash_table::count
- * Member 'count' is the current number of occupied buckets 
- * in the hash table
- * @var ht_hash_table::items
- * Member item of struct type ht_item
+ * @brief The hash table struct
  * 
  * Refer to struct annotation here: https://stackoverflow.com/a/7210437
+ * @var int ht_hash_table::size
+ * The size of the hash table
+ * @var int ht_hash_table::count
+ * The current number of occupied buckets 
+ * in the hash table
+ * @var ht_item ** ht_hash_table::items
+ * Member item of struct type ht_item
  */
 typedef struct
 {
@@ -65,11 +66,11 @@ int initialiseHashTable(ht_hash_table* hashTable, int size);
 
 
 /**
- * @brief Inserts 
+ * @brief Inserts a new item into the hash table
  * 
- * @param hashTable 
- * @param key 
- * @param value 
+ * @param hashTable The hash table instance
+ * @param key       The key to insert
+ * @param value     The value to insert
  * @return int 
  */
 int insert(ht_hash_table* hashTable, char* key, void* value);
@@ -77,9 +78,9 @@ int insert(ht_hash_table* hashTable, char* key, void* value);
 /**
  * @brief Deletes the bucket with the given key
  * 
- * @param hashTable 
- * @param key 
- * @return int 
+ * @param hashTable The hash table instance
+ * @param key       The key associated to the bucket to delete
+ * @return int      The exit code (0 = Failed to delete or 1 = Successfully deleted)
  */
 int delete(ht_hash_table* hashTable, char* key);
 
@@ -87,19 +88,19 @@ int delete(ht_hash_table* hashTable, char* key);
 /**
  * @brief Updates the value of the given key
  * 
- * @param hashTable 
- * @param key 
- * @param value 
- * @return int 
+ * @param hashTable The hash table instance
+ * @param key       The key associated to the bucket to update
+ * @param value     The value to update the bucket
+ * @return int      The exit code (0 = Failed to update or 1 = Successfully updated)
  */
 int update(ht_hash_table* hashTable, char* key, char* value);
 
 /**
  * @brief Finds the bucket's index to place the data in
  * 
- * @param hashTable 
- * @param key 
- * @return char* 
+ * @param hashTable The hash table instance
+ * @param key       The key associated to the bucket to search for
+ * @return char*    The value associated to the key
  */
 char* search(ht_hash_table* hashTable, char* key);
 
@@ -107,35 +108,35 @@ char* search(ht_hash_table* hashTable, char* key);
 /**
  * @brief Get the Index object for the given key
  * 
- * @param hashTable 
- * @param key 
- * @return int 
+ * @param hashTable The hash table instance
+ * @param key       The key to find the associated index within the hash table
+ * @return int      The index associated to the key
  */
 int getIndex(ht_hash_table* hashTable, char* key);
 
 /**
  * @brief Resizes the hashtable
  * 
- * @param hashTable 
- * @return int 
+ * @param hashTable The hash table instance
+ * @return int      The exit code (0 = Failed to resize or 1 = Successfully resized)
  */
 int resize(ht_hash_table* hashTable);
 
 /**
  * @brief Calculates the hash of the key
  * 
- * @param hashTable
- * @param key 
- * @param htLength
- * @return int 
+ * @param hashTable The hash table instance
+ * @param key       The key to base the hash calculation on
+ * @param htLength  The length of the hash table
+ * @return int      The calculated hash
  */
 int hash(char* key, int htLength);
 
 /**
  * @brief Checks if the hash table is full
  * 
- * @param hashTable 
- * @return int 
+ * @param hashTable The hash table instance
+ * @return int      Boolean on whether it is full or not (1 = Full or 0 = Not full)
  */
 int isFull(ht_hash_table* hashTable);
 
