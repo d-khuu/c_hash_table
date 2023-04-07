@@ -1,3 +1,7 @@
+# Project Specific Files
+data.csv
+doc/*
+
 # Prerequisites
 *.d
 
@@ -51,4 +55,3 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-data.csv
