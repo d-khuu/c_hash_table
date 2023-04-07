@@ -65,7 +65,7 @@ int initialiseHashTable(ht_hash_table* hashTable, int size);
 
 
 /**
- * @brief 
+ * @brief Inserts 
  * 
  * @param hashTable 
  * @param key 
@@ -75,13 +75,24 @@ int initialiseHashTable(ht_hash_table* hashTable, int size);
 int insert(ht_hash_table* hashTable, char* key, void* value);
 
 /**
- * @brief 
+ * @brief Deletes the bucket with the given key
  * 
  * @param hashTable 
  * @param key 
  * @return int 
  */
 int delete(ht_hash_table* hashTable, char* key);
+
+
+/**
+ * @brief Updates the value of the given key
+ * 
+ * @param hashTable 
+ * @param key 
+ * @param value 
+ * @return int 
+ */
+int update(ht_hash_table* hashTable, char* key, char* value);
 
 /**
  * @brief Finds the bucket's index to place the data in
@@ -91,6 +102,16 @@ int delete(ht_hash_table* hashTable, char* key);
  * @return char* 
  */
 char* search(ht_hash_table* hashTable, char* key);
+
+
+/**
+ * @brief Get the Index object for the given key
+ * 
+ * @param hashTable 
+ * @param key 
+ * @return int 
+ */
+int getIndex(ht_hash_table* hashTable, char* key);
 
 /**
  * @brief Resizes the hashtable

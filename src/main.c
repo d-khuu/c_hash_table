@@ -56,16 +56,24 @@ int loadFromFile(ht_hash_table* hashTable)
     return 1;
 }
 
+/**
+ * @brief The main function just for testing the hash table
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char *argv[])
 {
     if(argc < 2)
     {
         printf("[Error] Size not provided.\n");
+        exit(EXIT_FAILURE);
     }
     else if(atoi(argv[1]) == 0)
     {
         printf("[Error] Invalid integer %s.\n",argv[1]);
-        return 0;
+        exit(EXIT_FAILURE);
     }
 
     
@@ -114,7 +122,11 @@ int main(int argc, char *argv[])
     //     printf("BAD\n");
     // }
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
-    printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[1]->key, hashTablePtr->items[1]->value);
+    printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[3]->key, hashTablePtr->items[3]->value);
+
+    delete(hashTablePtr, "tom");
+    printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
+
     
     exit(EXIT_SUCCESS);
 }

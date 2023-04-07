@@ -48,7 +48,7 @@ int insert(ht_hash_table* hashTable, char* key, void* value)
     }
     else
     {   
-        printf("[Info] Collision for index %d\n", hashVal);
+        printf("[Info] Collision for index %d for key %s\n", hashVal, key);
         baseIndex = hashVal;
         for(int i=0;i<hashTable->size;i++)
         {
@@ -92,8 +92,9 @@ int delete(ht_hash_table* hashTable, char* key)
 
     if(strcmp(hashTable->items[hashVal]->key, key) == 0)
     {
+        ht_item* tempItem = malloc(sizeof(tempItem));
         tempVal = hashTable->items[hashVal]->value;
-        hashTable->items[hashVal] = NULL;
+        hashTable->items[hashVal] = tempItem;
         hashTable->count --;
         printf("[Info] Deleted item with key: %s value: %s\n", key, tempVal);
         return 1;
@@ -112,8 +113,9 @@ int delete(ht_hash_table* hashTable, char* key)
             }
             else if(strcmp(hashTable->items[currIndex]->key, key) == 0)
             {
+                ht_item* tempItem = malloc(sizeof(tempItem));
                 tempVal = hashTable->items[currIndex]->value;
-                hashTable->items[currIndex] = NULL;
+                hashTable->items[currIndex] = tempItem;
                 hashTable->count --;
                 printf("[Info] Deleted item with key: %s value: %s\n", key, tempVal);
                 return 1;
@@ -124,20 +126,46 @@ int delete(ht_hash_table* hashTable, char* key)
     }
 }
 
+int update(ht_hash_table* hashTable, char* key, char* value)
+{   
+    int retIndex = getIndex(hashTable, key);
+
+    if(retIndex != -1)
+    {
+        printf("[Info] Found bucket for key %s\n",key);
+        hashTable->items[retIndex]->value = strdup(value);
+        return 1;
+    }
+    else
+    {
+        printf("[Error] Can't find the bucket with key %s\n",key);
+        return 0;
+    }
+}
+
 char* search(ht_hash_table* hashTable, char* key)
 {   
+    int retIndex = getIndex(hashTable, key);
+
+    if(retIndex != -1)
+    {
+        return hashTable->items[retIndex]->value;
+    }
+    else
+    {
+        printf("[Error] Can't find the bucket with key %s\n",key);
+        return NULL;
+    }
+}
+
+int getIndex(ht_hash_table* hashTable, char* key)
+{
     int hashVal = hash(key, hashTable->size);
     int length = hashTable->size;
 
-    if(hashTable->items[hashVal] == NULL)
-    {
-        printf("[Warning] Invalid key \"%s\". Cannot search.\n",key);
-        return NULL;
-    }
-
     if(strcmp(key, hashTable->items[hashVal]->key) == 0)
     {
-        return hashTable->items[hashVal]->value;
+        return hashVal;
     }
     else
     {
@@ -146,14 +174,37 @@ char* search(ht_hash_table* hashTable, char* key)
             {
                 if(strcmp(key, hashTable->items[i]->key) == 0)
                 {
-                    return hashTable->items[i]->value;
+                    return i;
                 }    
             }
         }
         printf("[Error] Can't find the bucket with key %s\n",key);
-        return NULL;
+        return -1;
     }
 }
+
+int resize(ht_hash_table* hashTable)
+{
+    int sizeNew = generatePrime((hashTable->size));
+    printf("[Info]================Resizing================\n");
+    printf("[Info] Resized to %d\n",sizeNew);
+
+    ht_hash_table* hashTableNew = malloc(sizeof(*hashTableNew));
+
+    initialiseHashTable(hashTableNew, sizeNew);
+
+    for(int i=0;i<hashTable->count;i++)
+    {
+        insert(hashTableNew, hashTable->items[i]->key, hashTable->items[i]->value);
+    }
+
+
+    *hashTable = *hashTableNew;
+    free(hashTableNew);
+
+    return 1;
+}
+
 
 int hash(char* key, int htLength)
 {
@@ -177,27 +228,6 @@ int hash(char* key, int htLength)
     return hash;
 }
 
-int resize(ht_hash_table* hashTable)
-{
-    int sizeNew = generatePrime((hashTable->size));
-
-    printf("[Info] Resized to %d\n",sizeNew);
-
-    ht_hash_table* hashTableNew = malloc(sizeof(*hashTableNew));
-
-    initialiseHashTable(hashTableNew, sizeNew);
-
-    for(int i=0;i<hashTable->count;i++)
-    {
-        insert(hashTableNew, hashTable->items[i]->key, hashTable->items[i]->value);
-    }
-
-
-    *hashTable = *hashTableNew;
-    free(hashTableNew);
-
-    return 1;
-}
 
 int isFull(ht_hash_table* hashTable)
 {
