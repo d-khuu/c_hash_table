@@ -172,12 +172,9 @@ int getIndex(ht_hash_table* hashTable, char* key)
     else
     {
         for(int i=hashVal+1; i<length; i++)
-        {   if(hashTable->items[i] != NULL)
+        {   if((hashTable->items[i] != NULL) && (strcmp(key, hashTable->items[i]->key) == 0))
             {
-                if(strcmp(key, hashTable->items[i]->key) == 0)
-                {
-                    return i;
-                }    
+                return i;
             }
         }
         printf("[Error] Can't find the bucket with key %s\n",key);
@@ -215,18 +212,9 @@ int hash(char* key, int htLength)
 
     for(int i=0;i<keyLength;i++)
     {
-        if(hash == -1)
-        {
-            hash = key[i];
-        }
-        else
-        {
-            hash += key[i];
-        }
-        //  printf("Char: %c -> Value: %d\n", key[i], key[i]);
+        hash = (hash == -1) ? key[i] : (hash + key[i]);
     }
     hash = hash % htLength;
-    // printf("%d\n", hash);
     return hash;
 }
 
@@ -248,12 +236,5 @@ int initSize(int size)
 
 int isFull(ht_hash_table* hashTable)
 {
-    if(hashTable->size == hashTable->count)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return (hashTable->size == hashTable->count) ? 1 : 0;
 }
