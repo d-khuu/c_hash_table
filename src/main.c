@@ -92,6 +92,7 @@ int main(int argc, char *argv[])
     if(initialiseHashTable(hashTablePtr, initSize) != 1)
     {
         printf("[Error] Failed to initialise the hash table.\n");
+        exit(EXIT_FAILURE);
     }
     printf("[Info] Hash Table Size: %d, Count: %d.\n", hashTablePtr->size, hashTablePtr->count);
     
