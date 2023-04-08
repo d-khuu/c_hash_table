@@ -57,6 +57,27 @@ int loadFromFile(ht_hash_table* hashTable)
 }
 
 /**
+ * @brief Reads the arguments and returns the init hashmap size
+ * 
+ * @param argc Argument count
+ * @param argv Arguments in an array
+ * @return int 
+ */
+int readArgs(int argc, char *argv[])
+{
+    if(argc > 1)
+    {
+        if(atoi(argv[1]) <= 0)
+        {
+            printf("[Error] Invalid integer %s.\n",argv[1]);
+            exit(EXIT_FAILURE);
+        }
+        return atoi(argv[1]);
+    }
+    return 0;
+}
+
+/**
  * @brief The main function just for testing the hash table
  * 
  * @param argc The number of arguments passed
@@ -65,36 +86,10 @@ int loadFromFile(ht_hash_table* hashTable)
  */
 int main(int argc, char *argv[])
 {
-    if(argc < 2)
-    {
-        printf("[Error] Size not provided.\n");
-        exit(EXIT_FAILURE);
-    }
-    else if(atoi(argv[1]) == 0)
-    {
-        printf("[Error] Invalid integer %s.\n",argv[1]);
-        exit(EXIT_FAILURE);
-    }
-
-    
-    int SIZE_G = atoi(argv[1]);
-    int exitCode;
-
-    exitCode = isPrime(SIZE_G);
-    if(exitCode == 1)
-    {
-        printf("[Info] The value %d is a prime number.\n", SIZE_G);
-    }
-    else
-    {
-        printf("[Warning] The value %d is not a prime number.\n", SIZE_G);
-        SIZE_G = generatePrime(SIZE_G);
-        printf("[Warning] We'll generate one for you. Here, it will be %d.\n", SIZE_G);
-    }
-    
+    int initSize = readArgs(argc, argv);
     ht_hash_table* hashTablePtr = malloc(sizeof(*hashTablePtr));
 
-    if(initialiseHashTable(hashTablePtr, SIZE_G) != 1)
+    if(initialiseHashTable(hashTablePtr, initSize) != 1)
     {
         printf("[Error] Failed to initialise the hash table.\n");
     }
@@ -122,7 +117,7 @@ int main(int argc, char *argv[])
     //     printf("BAD\n");
     // }
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
-    printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[3]->key, hashTablePtr->items[3]->value);
+    printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[15]->key, hashTablePtr->items[15]->value);
 
     delete(hashTablePtr, "tom");
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));

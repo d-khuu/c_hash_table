@@ -14,6 +14,8 @@
 
 int initialiseHashTable(ht_hash_table* hashTable, int size)
 {
+    size = (size <= 0) ? DEFAULT_INITIAL_CAPACITY : initSize(size);
+
     hashTable->size = size;
     hashTable->count = 0;
     // hashTable->items = calloc((size_t)hashTable->size, sizeof(hashTable->items));
@@ -228,6 +230,21 @@ int hash(char* key, int htLength)
     return hash;
 }
 
+int initSize(int size)
+{
+    int exitCode = isPrime(size);
+    if(exitCode == 1)
+    {
+        printf("[Info] The value %d is a prime number.\n", size);
+    }
+    else
+    {
+        printf("[Warning] The value %d is not a prime number.\n", size);
+        size = generatePrime(size);
+        printf("[Warning] We'll generate one for you. Here, it will be %d.\n", size);
+    }
+    return size;
+}
 
 int isFull(ht_hash_table* hashTable)
 {

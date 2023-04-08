@@ -20,6 +20,13 @@
 #include "prime.h"
 
 /**
+ * @brief Java likes this number as the 
+ * initial size
+ * 
+ */
+#define DEFAULT_INITIAL_CAPACITY 1<<4
+
+/**
  * @struct ht_item
  * @brief The hash table item struct
  * @var char * ht_item::key
@@ -131,6 +138,14 @@ int resize(ht_hash_table* hashTable);
  * @return int      The calculated hash
  */
 int hash(char* key, int htLength);
+
+/**
+ * @brief Initialises the size integer
+ * 
+ * @param size The size to check and initialise
+ * @return int The valid size integer to initialise with
+ */
+int initSize(int size);
 
 /**
  * @brief Checks if the hash table is full
