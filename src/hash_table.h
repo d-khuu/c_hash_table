@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include "prime.h"
+#include "linked_list.h"
 
 /**
  * @brief Java likes this number as the 
@@ -27,11 +28,18 @@
 #define DEFAULT_INITIAL_CAPACITY 1<<4
 
 /**
- * @struct ht_item
+ * @brief The load factor of the hash
+ * table
+ * 
+ */
+#define LOAD_FACTOR 0.75
+
+/**
+ * @struct HashTableItem
  * @brief The hash table item struct
- * @var char * ht_item::key
+ * @var char * HashTableItem::key
  * The key for indexing the value
- * @var char * ht_item::value
+ * @var char * HashTableItem::value
  * The value/bucket associated to the key
  * 
  */
@@ -39,28 +47,28 @@ typedef struct
 {
     char* key;
     char* value;
-} ht_item;
+} HashTableItem;
 
 
 /** 
- * @struct ht_hash_table
+ * @struct HashTable
  * @brief The hash table struct
  * 
  * Refer to struct annotation here: https://stackoverflow.com/a/7210437
- * @var int ht_hash_table::size
+ * @var int HashTable::size
  * The size of the hash table
- * @var int ht_hash_table::count
+ * @var int HashTable::count
  * The current number of occupied buckets 
  * in the hash table
- * @var ht_item ** ht_hash_table::items
- * Member item of struct type ht_item
+ * @var HashTableItem ** HashTable::items
+ * Member item of struct type HashTableItem
  */
 typedef struct
 {
     int size;
     int count;
-    ht_item** items;
-}ht_hash_table;
+    HashTableItem** items;
+}HashTable;
 
 /**
  * @brief Initialise the hash table
@@ -69,7 +77,7 @@ typedef struct
  * @param size      The initialised size of the hash table
  * @return int      The error code
  */
-int initialiseHashTable(ht_hash_table* hashTable, int size);
+int initialise_ht(HashTable* hashTable, int size);
 
 
 /**
@@ -80,7 +88,7 @@ int initialiseHashTable(ht_hash_table* hashTable, int size);
  * @param value     The value to insert
  * @return int 
  */
-int insert(ht_hash_table* hashTable, char* key, void* value);
+int insert_ht(HashTable* hashTable, char* key, void* value);
 
 /**
  * @brief Deletes the bucket with the given key
@@ -89,7 +97,7 @@ int insert(ht_hash_table* hashTable, char* key, void* value);
  * @param key       The key associated to the bucket to delete
  * @return int      The exit code (0 = Failed to delete or 1 = Successfully deleted)
  */
-int delete(ht_hash_table* hashTable, char* key);
+int delete_ht(HashTable* hashTable, char* key);
 
 
 /**
@@ -100,7 +108,7 @@ int delete(ht_hash_table* hashTable, char* key);
  * @param value     The value to update the bucket
  * @return int      The exit code (0 = Failed to update or 1 = Successfully updated)
  */
-int update(ht_hash_table* hashTable, char* key, char* value);
+int update_ht(HashTable* hashTable, char* key, char* value);
 
 /**
  * @brief Finds the bucket's index to place the data in
@@ -109,7 +117,7 @@ int update(ht_hash_table* hashTable, char* key, char* value);
  * @param key       The key associated to the bucket to search for
  * @return char*    The value associated to the key
  */
-char* search(ht_hash_table* hashTable, char* key);
+char* search_ht(HashTable* hashTable, char* key);
 
 
 /**
@@ -119,7 +127,7 @@ char* search(ht_hash_table* hashTable, char* key);
  * @param key       The key to find the associated index within the hash table
  * @return int      The index associated to the key
  */
-int getIndex(ht_hash_table* hashTable, char* key);
+int getIndex_ht(HashTable* hashTable, char* key);
 
 /**
  * @brief Resizes the hashtable
@@ -127,7 +135,7 @@ int getIndex(ht_hash_table* hashTable, char* key);
  * @param hashTable The hash table instance
  * @return int      The exit code (0 = Failed to resize or 1 = Successfully resized)
  */
-int resize(ht_hash_table* hashTable);
+int resize_ht(HashTable* hashTable);
 
 /**
  * @brief Calculates the hash of the key
@@ -137,7 +145,7 @@ int resize(ht_hash_table* hashTable);
  * @param htLength  The length of the hash table
  * @return int      The calculated hash
  */
-int hash(char* key, int htLength);
+int hash_ht(char* key, int htLength);
 
 /**
  * @brief Initialises the size integer
@@ -145,7 +153,7 @@ int hash(char* key, int htLength);
  * @param size The size to check and initialise
  * @return int The valid size integer to initialise with
  */
-int initSize(int size);
+int initSize_ht(int size);
 
 /**
  * @brief Checks if the hash table is full
@@ -153,7 +161,7 @@ int initSize(int size);
  * @param hashTable The hash table instance
  * @return int      Boolean on whether it is full or not (1 = Full or 0 = Not full)
  */
-int isFull(ht_hash_table* hashTable);
+int isFull_ht(HashTable* hashTable);
 
 
 #endif

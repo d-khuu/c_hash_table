@@ -17,7 +17,7 @@
  * @param hashTable The hash table instance
  * @return int The exit code (0 = Failed or 1 = Successful)
  */
-int loadFromFile(ht_hash_table* hashTable)
+int load_from_file(HashTable* hashTable)
 {
     FILE * fptr;
     char str[100];
@@ -40,16 +40,16 @@ int loadFromFile(ht_hash_table* hashTable)
         keyTemp = strtok(str, ",\n");
         valueTemp = strtok(NULL, ",\n");
         // printf("key: %s value: %s\n",keyTemp, valueTemp);
-        insert(hashTable, keyTemp, valueTemp);
-        // if(isFull(hashTable))
+        insert_ht(hashTable, keyTemp, valueTemp);
+        // if(isFull_ht(hashTable))
         // {
         //     printf("[Warning] The hashtable is full\n");
         //     // break;
         // }
     }
-    // printf("[Info] hashmap index: %s, value: %s\n", "town", search(hashTable, "town"));
+    // printf("[Info] hashmap index: %s, value: %s\n", "town", search_ht(hashTable, "town"));
     // printf("hashmap index: %s, value: %s\n", hashTable->items[1]->key, hashTable->items[1]->value);
-    // printf("[Info] hashmap index: %s, value: %s\n", keyTemp, search(hashTable, keyTemp));
+    // printf("[Info] hashmap index: %s, value: %s\n", keyTemp, search_ht(hashTable, keyTemp));
     printf("[Info] Complete import\n");
     fclose(fptr);
     // exit(0);
@@ -63,7 +63,7 @@ int loadFromFile(ht_hash_table* hashTable)
  * @param argv Arguments in an array
  * @return int 
  */
-int readArgs(int argc, char *argv[])
+int read_args(int argc, char *argv[])
 {
     if(argc > 1)
     {
@@ -86,17 +86,17 @@ int readArgs(int argc, char *argv[])
  */
 int main(int argc, char *argv[])
 {
-    int initSize = readArgs(argc, argv);
-    ht_hash_table* hashTablePtr = malloc(sizeof(*hashTablePtr));
+    int initSize_ht = read_args(argc, argv);
+    HashTable* hashTablePtr = malloc(sizeof(*hashTablePtr));
 
-    if(initialiseHashTable(hashTablePtr, initSize) != 1)
+    if(initialise_ht(hashTablePtr, initSize_ht) != 1)
     {
         printf("[Error] Failed to initialise the hash table.\n");
         exit(EXIT_FAILURE);
     }
     printf("[Info] Hash Table Size: %d, Count: %d.\n", hashTablePtr->size, hashTablePtr->count);
     
-    loadFromFile(hashTablePtr);
+    load_from_file(hashTablePtr);
 
     // char * keyTest = "sam";
     // void * valTest = "valueTest";
@@ -111,17 +111,17 @@ int main(int argc, char *argv[])
     // keyTest = (char *)malloc(20);
     // strcpy(keyTest, "fake");
     // printf("%s\n",keyTest);
-    // printf("%d\n",hash(keyTest, hashTablePtr->size));
-    // printf("key => %s = %d, item => %s\n", keyTest, hash(keyTest, hashTablePtr->size), hashTablePtr->items[hash(keyTest, hashTablePtr->size)]->value);
+    // printf("%d\n",hash_ht(keyTest, hashTablePtr->size));
+    // printf("key => %s = %d, item => %s\n", keyTest, hash_ht(keyTest, hashTablePtr->size), hashTablePtr->items[hash_ht(keyTest, hashTablePtr->size)]->value);
     // if(delete(hashTablePtr, toon) == 0)
     // {
     //     printf("BAD\n");
     // }
-    printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
+    printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[15]->key, hashTablePtr->items[15]->value);
 
-    delete(hashTablePtr, "tom");
-    printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search(hashTablePtr, "town"));
+    delete_ht(hashTablePtr, "tom");
+    printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
 
     
     exit(EXIT_SUCCESS);
