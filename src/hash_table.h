@@ -140,7 +140,6 @@ int resize_ht(HashTable* hashTable);
 /**
  * @brief Calculates the hash of the key
  * 
- * @param hashTable The hash table instance
  * @param key       The key to base the hash calculation on
  * @param htLength  The length of the hash table
  * @return int      The calculated hash
