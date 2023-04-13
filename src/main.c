@@ -9,6 +9,12 @@
  * 
  */
 #include "hash_table.h"
+
+/**
+ * @brief Static file name
+ * to load data from
+ * 
+ */
 #define FILE_NAME "data.csv"
 
 /**
