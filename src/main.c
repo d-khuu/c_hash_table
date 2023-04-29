@@ -83,14 +83,32 @@ int read_args(int argc, char *argv[])
     return 0;
 }
 
-/**
- * @brief The main function just for testing the hash table
- * 
- * @param argc The number of arguments passed
- * @param argv The argument values
- * @return int 
- */
-int main(int argc, char *argv[])
+
+int playWithLL()
+{
+    
+    LinkedList* linkedList = malloc(sizeof(*linkedList));
+
+    initialise_ll(linkedList);
+
+    insert_ll(linkedList, "char", "zaku");
+    printLinkedList(linkedList);
+    insert_ll(linkedList, "amuro", "rx-78-2");
+    printf("Searching: %s\n",search_ll(linkedList, "amuro"));
+    printLinkedList(linkedList);
+    insert_ll(linkedList, "aaa", "rx-78-2");
+    insert_ll(linkedList, "aca", "rx-78-2");
+    insert_ll(linkedList, "waca", "rx-78-2");
+    insert_ll(linkedList, "aba", "rx-78-2");
+    printLinkedList(linkedList);
+    delete_ll(linkedList, "char");
+
+
+    return 1;
+}
+
+
+int normalOperations(int argc, char *argv[])
 {
     int initSize_ht = read_args(argc, argv);
     HashTable* hashTablePtr = malloc(sizeof(*hashTablePtr));
@@ -104,32 +122,28 @@ int main(int argc, char *argv[])
     
     load_from_file(hashTablePtr);
 
-    // char * keyTest = "sam";
-    // void * valTest = "valueTest";
-    // printf("%s\n",keyTest);
-
-    // char * toon = "toonj";
-    // void * val = "kingdom";
-    // printf("hash of new is %d\n", hash(toon, hashTablePtr->size));
-    
-    // insert(hashTablePtr, keyTest, valTest);
-    // insert(hashTablePtr, toon, val);
-    // keyTest = (char *)malloc(20);
-    // strcpy(keyTest, "fake");
-    // printf("%s\n",keyTest);
-    // printf("%d\n",hash_ht(keyTest, hashTablePtr->size));
-    // printf("key => %s = %d, item => %s\n", keyTest, hash_ht(keyTest, hashTablePtr->size), hashTablePtr->items[hash_ht(keyTest, hashTablePtr->size)]->value);
-    // if(delete(hashTablePtr, toon) == 0)
-    // {
-    //     printf("BAD\n");
-    // }
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[15]->key, hashTablePtr->items[15]->value);
 
     delete_ht(hashTablePtr, "tom");
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
 
+    return 1;
+}
+
+/**
+ * @brief The main function just for testing the hash table
+ * 
+ * @param argc The number of arguments passed
+ * @param argv The argument values
+ * @return int 
+ */
+int main(int argc, char *argv[])
+{
+    playWithLL();
+
     
     exit(EXIT_SUCCESS);
 }
+
 
