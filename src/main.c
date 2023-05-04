@@ -91,15 +91,15 @@ int playWithLL()
 
     initialise_ll(linkedList);
 
-    insert_ll(linkedList, "char", "zaku");
+    insert_ll(linkedList, "Char", "zaku");
     printLinkedList(linkedList);
-    insert_ll(linkedList, "amuro", "rx-78-2");
+    insert_ll(linkedList, "Amuro", "rx-78-2");
     printf("Searching: %s\n",search_ll(linkedList, "amuro"));
     printLinkedList(linkedList);
-    insert_ll(linkedList, "aaa", "rx-78-2");
-    insert_ll(linkedList, "aca", "rx-78-2");
-    insert_ll(linkedList, "waca", "rx-78-2");
-    insert_ll(linkedList, "aba", "rx-78-2");
+    insert_ll(linkedList, "Kamille", "Zeta");
+    insert_ll(linkedList, "Judau", "ZZ");
+    insert_ll(linkedList, "Amuro", "nu");
+    insert_ll(linkedList, "Quattro", "Hyaku Shiki");
     printLinkedList(linkedList);
     delete_ll(linkedList, "char");
 
@@ -141,6 +141,7 @@ int normalOperations(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
     playWithLL();
+    // normalOperations(argc, argv);
 
     
     exit(EXIT_SUCCESS);

@@ -20,6 +20,12 @@ int initialise_ht(HashTable* hashTable, int size)
     hashTable->count = 0;
     // hashTable->items = calloc((size_t)hashTable->size, sizeof(hashTable->items));
     hashTable->items = malloc(hashTable->size * sizeof(hashTable->items));
+    // for(int i = 0;i<size;i++)
+    // {
+    //     LinkedList * linkedList = malloc(sizeof(*linkedList));
+    //     initialise_ll(linkedList);
+    //     hashTable->items[i] = linkedList;
+    // }
     return 1;
 }
 
