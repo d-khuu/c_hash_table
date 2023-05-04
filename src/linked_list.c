@@ -47,7 +47,7 @@ int insert_ll(LinkedList* linkedList, char* key, char* value)
             // ll key and key are the same
             if(resultCmp == 0)
             {
-                printf("The key already exists within the bucket");
+                printf("[Error] The key %s already exists within the bucket\n", key);
                 free(tempNode);
                 return 0;
             }
@@ -60,7 +60,7 @@ int insert_ll(LinkedList* linkedList, char* key, char* value)
                 if(prevNode != NULL) prevNode->next = tempNode;
                 if(currNode == headNode->head) headNode->head = tempNode;
                 headNode->size ++;
-                printf("[Info] Inserted node in linkedlist with key: %s value: %s\n", key, value);
+                printf("[Info] Inserted node in linkedlist with Key: %s Value: %s\n", key, value);
                 return 1;
             }
             // Next is null, so insert
@@ -70,7 +70,7 @@ int insert_ll(LinkedList* linkedList, char* key, char* value)
                 tempNode->prev = currNode;
                 tempNode->next = NULL;
                 headNode->size ++;
-                printf("[Info] Inserted node in linkedlist with key: %s value: %s\n", key, value);
+                printf("[Info] Inserted node in linkedlist with Key: %s Value: %s\n", key, value);
                 return 1;
             }
             prevNode = currNode;
@@ -90,7 +90,7 @@ int update_ll(LinkedList* linkedList, char* key, char* value)
 
     if(linkedList->head == NULL)
     {
-        printf("[Warning] There is nothing in this linked list to be updated. Key: %s Val: %s\n",key, value);
+        printf("[Warning] There is nothing in this linked list to be updated. Key: %s Value: %s\n",key, value);
         return 0;
     }
     else
