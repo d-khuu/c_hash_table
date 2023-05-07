@@ -1,5 +1,6 @@
 STANDARD = -std=c11
 CFLAGS = -pedantic -Wall -g
+OPT_FLAGS = -D OLD
 CC = gcc
 SRC_DIR = src
 BUILD_DIR = build
@@ -10,8 +11,17 @@ HEADERS = $(shell find $(SRC_DIR) -name '*.h')
 
 
 all: $(OBJS)
+	echo "Compiling Separate Chaining Hash Table"
 	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
+	./$(PROG)
 
+
+old: $(OBJS)
+	$(CC) $(CFLAGS) $(OPT_FLAGS) -c $(SRC_DIR)/main.c -o $(BUILD_DIR)/main.o
+	echo "Compiling Open Addressing Hash Table"
+	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
+	./$(PROG)
+	
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 

@@ -1,7 +1,8 @@
 /**
  * @file hash_table.c
  * @author Danny Khuu
- * @brief C file for the open addressing hash table data structure and functions
+ * @brief C file for the separate chaining hash table data structure 
+ *        and functions 
  * @version 0.1
  * @date 2023-03-18
  * 
@@ -9,7 +10,7 @@
  * 
  */
 
-#include "hash_table.h"
+#include "hash_table_chain.h"
 
 
 int initialise_ht(HashTable* hashTable, int size)
@@ -20,12 +21,12 @@ int initialise_ht(HashTable* hashTable, int size)
     hashTable->count = 0;
     // hashTable->items = calloc((size_t)hashTable->size, sizeof(hashTable->items));
     hashTable->items = malloc(hashTable->size * sizeof(hashTable->items));
-    // for(int i = 0;i<size;i++)
-    // {
-    //     LinkedList * linkedList = malloc(sizeof(*linkedList));
-    //     initialise_ll(linkedList);
-    //     hashTable->items[i] = linkedList;
-    // }
+    for(int i = 0;i<size;i++)
+    {
+        LinkedList * linkedList = malloc(sizeof(*linkedList));
+        initialise_ll(linkedList);
+        hashTable->items[i] = linkedList;
+    }
     return 1;
 }
 

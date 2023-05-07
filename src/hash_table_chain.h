@@ -1,7 +1,7 @@
 /**
  * @file hash_table.h
  * @author Danny Khuu
- * @brief Header file for the open addressing hash table data 
+ * @brief Header file for the separate chaining hash table data 
  *        structure and its functions
  * @version 0.1
  * @date 2023-03-18
@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include "prime.h"
+#include "linked_list.h"
 
 /**
  * @brief Java likes this number as the 
@@ -32,21 +33,6 @@
  * 
  */
 #define LOAD_FACTOR 0.75
-
-/**
- * @struct HashTableItem
- * @brief The hash table item struct
- * @var char * HashTableItem::key
- * The key for indexing the value
- * @var char * HashTableItem::value
- * The value/bucket associated to the key
- * 
- */
-typedef struct
-{
-    char* key;
-    char* value;
-} HashTableItem;
 
 
 /** 
@@ -66,7 +52,7 @@ typedef struct
 {
     int size;
     int count;
-    HashTableItem** items;
+    LinkedList** items;
 }HashTable;
 
 /**

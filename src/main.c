@@ -17,6 +17,13 @@
  */
 #define FILE_NAME "data.csv"
 
+#ifdef OLD
+#include "hash_table.h"
+#else
+#include "hash_table_chain.h"
+#endif
+
+
 /**
  * @brief Loads the data from the csv file into the hashtable
  * 
@@ -84,28 +91,28 @@ int read_args(int argc, char *argv[])
 }
 
 
-int playWithLL()
-{
+// int playWithLL()
+// {
     
-    LinkedList* linkedList = malloc(sizeof(*linkedList));
+//     LinkedList* linkedList = malloc(sizeof(*linkedList));
 
-    initialise_ll(linkedList);
+//     initialise_ll(linkedList);
 
-    insert_ll(linkedList, "Char", "zaku");
-    printLinkedList(linkedList);
-    insert_ll(linkedList, "Amuro", "rx-78-2");
-    printf("Searching: %s\n",search_ll(linkedList, "amuro"));
-    printLinkedList(linkedList);
-    insert_ll(linkedList, "Kamille", "Zeta");
-    insert_ll(linkedList, "Judau", "ZZ");
-    insert_ll(linkedList, "Amuro", "nu");
-    insert_ll(linkedList, "Quattro", "Hyaku Shiki");
-    printLinkedList(linkedList);
-    delete_ll(linkedList, "char");
+//     insert_ll(linkedList, "Char", "zaku");
+//     printLinkedList(linkedList);
+//     insert_ll(linkedList, "Amuro", "rx-78-2");
+//     printf("Searching: %s\n",search_ll(linkedList, "amuro"));
+//     printLinkedList(linkedList);
+//     insert_ll(linkedList, "Kamille", "Zeta");
+//     insert_ll(linkedList, "Judau", "ZZ");
+//     insert_ll(linkedList, "Amuro", "nu");
+//     insert_ll(linkedList, "Quattro", "Hyaku Shiki");
+//     printLinkedList(linkedList);
+//     delete_ll(linkedList, "char");
 
 
-    return 1;
-}
+//     return 1;
+// }
 
 
 int normalOperations(int argc, char *argv[])
@@ -140,8 +147,8 @@ int normalOperations(int argc, char *argv[])
  */
 int main(int argc, char *argv[])
 {
-    playWithLL();
-    // normalOperations(argc, argv);
+    // playWithLL();
+    normalOperations(argc, argv);
 
     
     exit(EXIT_SUCCESS);
