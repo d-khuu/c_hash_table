@@ -130,9 +130,10 @@ int normalOperations(int argc, char *argv[])
     load_from_file(hashTablePtr);
 
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
-    printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[15]->key, hashTablePtr->items[15]->value);
+    // printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[15]->key, hashTablePtr->items[15]->value);
 
     delete_ht(hashTablePtr, "tom");
+    delete_ht(hashTablePtr, "town");
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
 
     return 1;
