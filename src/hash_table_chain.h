@@ -104,16 +104,6 @@ int update_ht(HashTable* hashTable, char* key, char* value);
  */
 char* search_ht(HashTable* hashTable, char* key);
 
-
-/**
- * @brief Get the Index object for the given key
- * 
- * @param hashTable The hash table instance
- * @param key       The key to find the associated index within the hash table
- * @return int      The index associated to the key
- */
-int getIndex_ht(HashTable* hashTable, char* key);
-
 /**
  * @brief Resizes the hashtable
  * 
@@ -140,12 +130,13 @@ int hash_ht(char* key, int htLength);
 int initSize_ht(int size);
 
 /**
- * @brief Checks if the hash table is full
+ * @brief Checks if the hash table bucket's linkedlist exceeds the load factor
  * 
  * @param hashTable The hash table instance
+ * @param hashValue The hash value to find bucket
  * @return int      Boolean on whether it is full or not (1 = Full or 0 = Not full)
  */
-int isFull_ht(HashTable* hashTable);
+int isFull_ht(HashTable* hashTable, int hashValue);
 
 
 #endif
