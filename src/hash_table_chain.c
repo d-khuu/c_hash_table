@@ -1,5 +1,5 @@
 /**
- * @file hash_table.c
+ * @file hash_table_chain.c
  * @author Danny Khuu
  * @brief C file for the separate chaining hash table data structure 
  *        and functions 
