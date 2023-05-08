@@ -131,8 +131,9 @@ int normalOperations(int argc, char *argv[])
 
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
     // printf("[Info] (Searching) hashmap index: %s, value: %s\n", hashTablePtr->items[15]->key, hashTablePtr->items[15]->value);
-
-    delete_ht(hashTablePtr, "tom");
+    // printLinkedList(hashTablePtr->items[0]);
+    delete_ht(hashTablePtr, "fun");
+    // printLinkedList(hashTablePtr->items[0]);
     delete_ht(hashTablePtr, "town");
     printf("[Info] (Searching) hashmap index: %s, value: %s\n", "town", search_ht(hashTablePtr, "town"));
 
