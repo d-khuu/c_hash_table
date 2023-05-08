@@ -10,8 +10,8 @@
  * 
  */
 
-#ifndef HASH_TABLE_H
-#define HASH_TABLE_H
+#ifndef HASH_TABLE_CHAIN
+#define HASH_TABLE_CHAIN
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -45,8 +45,8 @@
  * @var int HashTable::count
  * The current number of occupied buckets (largely useless)
  * in the hash table
- * @var HashTableItem ** HashTable::items
- * Member item of struct type HashTableItem
+ * @var LinkedList** HashTable::items
+ * Member item of struct type LinkedList
  */
 typedef struct
 {

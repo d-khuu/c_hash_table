@@ -8,7 +8,6 @@
  * @copyright Copyright (c) 2023
  * 
  */
-#include "hash_table.h"
 
 /**
  * @brief Static file name
