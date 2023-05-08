@@ -6,6 +6,7 @@ SRC_DIR = src
 BUILD_DIR = build
 PROG = hash_table.x86_64
 SRC = $(shell find $(SRC_DIR) -name '*.c')
+# Split OBJS into separate searches
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 HEADERS = $(shell find $(SRC_DIR) -name '*.h')
 
