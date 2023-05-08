@@ -43,7 +43,7 @@
  * @var int HashTable::size
  * The size of the hash table
  * @var int HashTable::count
- * The current number of occupied buckets 
+ * The current number of occupied buckets (largely useless)
  * in the hash table
  * @var HashTableItem ** HashTable::items
  * Member item of struct type HashTableItem
