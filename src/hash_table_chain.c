@@ -46,7 +46,7 @@ int insert_ht(HashTable* hashTable, char* key, void* value)
     errorCode = insert_ll(hashTable->items[hashVal], key, value);
     if(errorCode == 1)
     {
-        // printf("[Info] Inserted key \"%s\" value \"%s\" index %d\n", key, (char*)value, hashVal);
+        printf("[Info] Inserted key \"%s\" value \"%s\" index %d\n", key, (char*)value, hashVal);
         return 1;
     }
     else
@@ -94,17 +94,18 @@ int resize_ht(HashTable* hashTable)
     HashTable* hashTableNew = malloc(sizeof(*hashTableNew));
 
     initialise_ht(hashTableNew, sizeNew);
-
-    for(int i=0;i<hashTable->count;i++)
+    // printf("[Debugging] hashmap size is %d\n", hashTable->size);
+    for(int i=0;i<hashTable->size;i++)
     {
         Node* currNode = hashTable->items[i]->head;
         if(hashTable->items[i]->head == NULL)
         {
-            break;
+            // printf("[Debug] Linkedlist at index %d is null.\n", i);
+            continue;
         }
-
         do
         {
+            // printf("[Debug] Attempting to insert key %s value %s\n", currNode->key, currNode->value);
             insert_ht(hashTableNew, currNode->key, currNode->value);
             currNode = currNode->next;
         } while (currNode != NULL);
@@ -112,6 +113,7 @@ int resize_ht(HashTable* hashTable)
 
     *hashTable = *hashTableNew;
     free(hashTableNew);
+    printf("[Info]===========Complete Resizing============\n");
 
     return 1;
 }
