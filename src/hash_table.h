@@ -27,13 +27,6 @@
 #define DEFAULT_INITIAL_CAPACITY 1<<4
 
 /**
- * @brief The load factor of the hash
- * table
- * 
- */
-#define LOAD_FACTOR 0.75
-
-/**
  * @struct HashTableItem
  * @brief The hash table item struct
  * @var char * HashTableItem::key
