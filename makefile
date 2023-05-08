@@ -8,19 +8,22 @@ PROG = hash_table.x86_64
 SRC = $(shell find $(SRC_DIR) -name '*.c')
 # Split OBJS into separate searches
 OBJS = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+OBJS_LL = $(filter-out $(BUILD_DIR)/hash_table.o, $(OBJS))
+OBJS_OLD = $(filter-out $(BUILD_DIR)/hash_table_chain.o, $(OBJS))
 HEADERS = $(shell find $(SRC_DIR) -name '*.h')
 
 
-all: $(OBJS)
+all: $(OBJS_LL)
+	echo $(OBJS_LL)
 	echo "Compiling Separate Chaining Hash Table"
-	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
+	$(CC) $(CFLAGS) -o $(PROG) $(OBJS_LL)
 	./$(PROG)
 
 
-old: $(OBJS)
+old: $(OBJS_OLD)
 	$(CC) $(CFLAGS) $(OPT_FLAGS) -c $(SRC_DIR)/main.c -o $(BUILD_DIR)/main.o
 	echo "Compiling Open Addressing Hash Table"
-	$(CC) $(CFLAGS) -o $(PROG) $(OBJS)
+	$(CC) $(CFLAGS) -o $(PROG) $(OBJS_OLD)
 	./$(PROG)
 	
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
